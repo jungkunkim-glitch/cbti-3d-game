@@ -1,7 +1,7 @@
 // ============================================================
 // CBTI — Car Buying Type Indicator (3D · v3)
 // Three.js · single-file game · multi-scene · multiple mini-games
-// Mobile landscape optimized, joystick, sounds, growth visible.
+// Mobile portrait optimized, joystick, sounds, growth visible.
 // ============================================================
 
 import * as THREE from 'three';
@@ -370,13 +370,15 @@ addEventListener('resize', resize);
 addEventListener('orientationchange', resize);
 function resize() {
   camera.aspect = innerWidth/innerHeight;
+  // Widen FOV in portrait so the scene doesn't feel zoomed-in
+  camera.fov = camera.aspect < 1 ? 70 : 55;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
   composer.setSize(innerWidth, innerHeight);
-  // Show rotate hint on portrait mobile
-  const portrait = innerHeight > innerWidth;
-  const small = Math.min(innerWidth, innerHeight) < 600;
-  if (portrait && small) rotateHint.classList.add('show');
+  // Show rotate hint on landscape mobile (game is now portrait-optimized)
+  const landscape = innerWidth > innerHeight;
+  const small = Math.min(innerWidth, innerHeight) < 500;
+  if (landscape && small) rotateHint.classList.add('show');
   else rotateHint.classList.remove('show');
 }
 resize();

@@ -373,7 +373,7 @@
   .sk.lit { opacity:1; transform: scale(1.1); filter: brightness(1.6) saturate(1.4); }
   .sk:active { transform: scale(.92); }
 
-  /* Orientation hint (portrait mobile) */
+  /* Orientation hint (landscape mobile) */
   #rotate-hint {
     position: fixed; inset:0; background: rgba(8, 6, 26, 0.96);
     z-index: 200; display:none; flex-direction:column;
@@ -383,9 +383,9 @@
   #rotate-hint.show { display:flex; }
   #rotate-hint .ph { font-size: 90px; animation: rot 1.6s ease-in-out infinite; }
   @keyframes rot {
-    0% { transform: rotate(0deg); }
-    50% { transform: rotate(-90deg); }
-    100% { transform: rotate(-90deg); }
+    0% { transform: rotate(-90deg); }
+    50% { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); }
   }
   #rotate-hint h3 {
     font-family:'Black Han Sans'; font-size: 24px; margin: 14px 0 6px;
@@ -407,19 +407,71 @@
     z-index: 60; cursor:pointer; backdrop-filter: blur(8px);
   }
 
-  /* Layouts: ensure tight spacing on short heights (landscape mobile) */
-  @media (max-height: 480px) {
-    .scene-card { bottom: 6px; padding: 8px 12px 10px; }
-    .scene-card h2 { font-size: 16px; margin-bottom:2px; }
-    .scene-card p { font-size: 11px; }
-    .choices { gap: 6px; margin-top: 6px; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
-    .choice { padding: 6px 8px; border-radius: 10px; }
-    .choice .em { font-size: 16px; }
-    .choice .name { font-size: 12px; }
-    .choice .desc { font-size: 10px; }
-    .hud .card { padding: 4px 8px; }
-    .speedo { width: 72px; height: 72px; right: 8px; bottom: 8px; }
+  /* Portrait mobile layouts */
+  @media (orientation: portrait), (max-width: 600px) {
+    .scene-card {
+      bottom: 12px; padding: 12px 14px 14px;
+      width: min(94%, 420px);
+    }
+    .scene-card h2 { font-size: clamp(16px, 4vw, 20px); }
+    .scene-card p { font-size: clamp(12px, 3.4vw, 13px); }
+    .choices {
+      grid-template-columns: 1fr 1fr;
+      gap: 8px; margin-top: 10px;
+    }
+    .choice { padding: 10px 12px; }
+    .choice .em { font-size: clamp(18px, 5vw, 22px); }
+    .choice .name { font-size: clamp(12px, 3.5vw, 14px); }
+    .choice .desc { font-size: clamp(10px, 3vw, 11px); }
+
+    .hud { top: 8px; left: 8px; right: 8px; }
+    .hud .card { padding: 5px 10px; }
+    .hud-label { font-size: 9px; }
+    .hud-val { font-size: 13px; }
+
+    .speedo {
+      width: 72px; height: 72px;
+      right: 10px; bottom: 10px;
+    }
     .speedo .v { font-size: 18px; }
+
+    .joystick {
+      width: 100px; height: 100px;
+      left: 14px; bottom: 14px;
+    }
+    .joystick .knob { width: 44px; height: 44px; }
+
+    .touch-actions {
+      left: 50%; transform: translateX(-50%);
+      bottom: 14px;
+    }
+    .tbtn { width: 56px; height: 56px; font-size: 24px; }
+
+    .banner-wrap { width: min(92%, 420px); }
+    .title-h { font-size: clamp(40px, 12vw, 72px); }
+    .subtitle { font-size: clamp(11px, 3vw, 14px); }
+
+    .result { padding: 14px 16px 16px; }
+    .radar-row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .car-rec { grid-template-columns: 1fr; }
+
+    .memo-board {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px; width: min(92%, 360px);
+    }
+    .memo-card {
+      width: 100%; aspect-ratio: 1;
+      height: auto;
+    }
+
+    .simon-board { gap: 10px; }
+    .sk { width: 64px; height: 64px; }
+
+    .food-legend { right: 10px; top: 56px; padding: 6px 10px; }
+    .feed-meter { width: min(80%, 300px); top: 56px; }
   }
 </style>
 </head>
@@ -434,8 +486,8 @@
 
 <div id="rotate-hint">
   <div class="ph">📱</div>
-  <h3>가로 모드로 회전해주세요</h3>
-  <p>이 게임은 가로 화면에 최적화되어 있어요</p>
+  <h3>세로 모드로 회전해주세요</h3>
+  <p>이 게임은 세로 화면에 최적화되어 있어요</p>
 </div>
 
 <script type="importmap">
